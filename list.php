@@ -17,7 +17,11 @@ $files = array_diff(scandir($searchdir), array('..', '.'));
 
 echo '<ul>';
 foreach ($files as $file) {
-    echo '<li><a href="/test.php?name='.basename($file, '.json').'">' . $file . '</a></li>';
+    echo '<li><a href="/test.php?name=' . basename($file, '.json') . '">' . $file . '</a>';
+    if (!$_SESSION['guest']) {
+        echo ' - <a href="delete.php?file=' . basename($file, '.json') . '">Удалить</a>';
+    }
+    echo '</li>';
 }
 echo '</ul>';
 
