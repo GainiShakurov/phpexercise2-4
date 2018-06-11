@@ -1,9 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список тестов</title>
+</head>
+<body>
+
 <?php
 require_once "functions.php";
+testAccess($_SESSION['user']);
+
+echo '<br /><a href="logout.php">Разлогиниться</a>';
 
 if (isset($_GET['name']) && !empty($_GET['name']) && !empty($_SESSION['user'])) {
-    $path = __DIR__ . '/tests/' . $_GET['name'] . '.json';
-    $currentFile = scandir(__DIR__ . '/tests/');
+    $path = 'tests/' . $_GET['name'] . '.json';
+    $currentFile = scandir('tests/');
 
     if (!in_array($_GET['name'] . '.json', $currentFile)) {
         http_response_code(404);
@@ -11,7 +22,8 @@ if (isset($_GET['name']) && !empty($_GET['name']) && !empty($_SESSION['user'])) 
         exit(1);
     }
 
-    $currentTest = json_decode(file_get_contents($path), true);
+    $data = file_get_contents($path) or exit('Не удалось получить данные');
+    $currentTest = json_decode($data, true) or exit('Ошибка декодирования json');
 
     echo '<form action="" method="POST">';
     echo '<input type="hidden" name="sended" value="1"/>';
@@ -34,7 +46,7 @@ if (isset($_GET['name']) && !empty($_GET['name']) && !empty($_SESSION['user'])) 
 
         foreach ($arr as $key => $value) {
 
-            if ($currentTest[$key]['answers'][$value]['correct']) {
+            if (!empty($currentTest[$key]['answers'][$value]['correct'])) {
                 $correctAnswersNumber++;
                 array_push($correctAnswersQues, $currentTest[$key]['body']);
             }

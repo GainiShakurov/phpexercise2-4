@@ -56,4 +56,13 @@ function getUser($login)
 function redirect($page) {
     header("Location: $page.php");
     die;
+
+}
+
+function testAccess($user) {
+    if (empty($user)) {
+        http_response_code(403);
+        echo 'Доступ запрещен!';
+        die;
+    }
 }

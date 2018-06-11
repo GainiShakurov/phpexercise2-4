@@ -4,21 +4,28 @@ require_once 'functions.php';
 $errors = [];
 if (!empty($_POST['username'])) {
 
-    if(login($_POST['username'], $_POST['password'])) {
+    if (login($_POST['username'], $_POST['password'])) {
         redirect('list');
     } else {
         $errors[] = 'Неверные логин или пароль';
     }
 }
 
+
 ?>
 
 <form action="" method="POST">
     <h1>Вход на сайт</h1>
     <ul>
-        <? foreach ($errors as $error): ?>
-            <ul><?= $error ?></ul>
-        <? endforeach; ?>
+        <?
+        if (count($errors) > 0) {
+            foreach ($errors as $error):
+                ?>
+                <ul><?= $error ?></ul>
+                <?
+            endforeach;
+        }
+        ?>
     </ul>
     <div>
         <input placeholder="Имя" required="" id="username" name="username" type="text">
