@@ -8,7 +8,7 @@
 
 <?php
 require_once "functions.php";
-testAccess($_SESSION['user']);
+testAccess();
 
 echo '<br /><a href="logout.php">Разлогиниться</a>';
 

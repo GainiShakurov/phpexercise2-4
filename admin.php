@@ -6,9 +6,14 @@
 </head>
 <body>
 <?php
-
 require_once "functions.php";
-testAccess($_SESSION['user']);
+testAccess();
+
+if (!empty($_SESSION['guest']) && $_SESSION['guest'] === true) {
+    http_response_code(403);
+    echo 'Доступ запрещен!';
+    die;
+}
 
 echo '<br /><a href="logout.php">Разлогиниться</a>';
 

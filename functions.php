@@ -59,8 +59,8 @@ function redirect($page) {
 
 }
 
-function testAccess($user) {
-    if (empty($user)) {
+function testAccess() {
+    if (empty($_SESSION['user'])) {
         http_response_code(403);
         echo 'Доступ запрещен!';
         die;

@@ -16,21 +16,19 @@ if (!empty($_POST['username'])) {
 
 <form action="" method="POST">
     <h1>Вход на сайт</h1>
-    <ul>
-        <?
+    <ul style="padding: 0;">
+        <?php
         if (count($errors) > 0) {
             foreach ($errors as $error):
-                ?>
-                <ul><?= $error ?></ul>
-                <?
+                echo '<li>' . $error . '</li>';
             endforeach;
         }
         ?>
     </ul>
-    <div>
+    <div style="margin: 10px 0">
         <input placeholder="Имя" required="" id="username" name="username" type="text">
     </div>
-    <div>
+    <div style="margin: 10px 0">
         <input placeholder="Пароль" id="password" name="password" type="password">
     </div>
     <div>

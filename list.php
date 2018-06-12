@@ -7,7 +7,7 @@
 <body>
 <?php
 require_once 'functions.php';
-testAccess($_SESSION['user']);
+testAccess();
 
 echo '<br /><a href="logout.php">Разлогиниться</a>';
 echo "<h3>Список всех доступных тестов</h3>";
@@ -17,7 +17,7 @@ $files = array_diff(scandir($searchdir), array('..', '.'));
 
 echo '<ul>';
 foreach ($files as $file) {
-    echo '<li><a href="/test.php?name=' . basename($file, '.json') . '">' . $file . '</a>';
+    echo '<li><a href="test.php?name=' . basename($file, '.json') . '">' . $file . '</a>';
     if (!$_SESSION['guest']) {
         echo ' - <a href="delete.php?file=' . basename($file, '.json') . '">Удалить</a>';
     }
